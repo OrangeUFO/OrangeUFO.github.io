@@ -2,6 +2,7 @@ title: ORANGE UFO
 description: 我的个人网站
 author: 橙色飞碟
 github: https://github.com/OrangeUFO
+douban: http://www.douban.com/people/OrangeUFO/
 about: 人是生而自由的，但却无往而不在枷锁之中
 avatar_url: /static/img/avatar.jpg
 
@@ -16,23 +17,20 @@ collections:
 social:
     - icon: fa-music
       link: "http://music.163.com/#/user/home?id=405440407"
+    - icon: fa-envelope
+      link: "mailto:chenhuijie23@qq.com"
     - icon: fa-weibo
-      link: "http://weibo.com/5305382808/profile?topnav=1&wvr=6&is_all=1"
-    - icon: fa-renren
       link: "http://www.douban.com/people/OrangeUFO/"
-    - icon: fa-stack-exchange
-      link: "http://www.douban.com/people/OrangeUFO/"
-    - icon: fa-github
-      link: "https://github.com/orangeufo"
-
+    - icon: fa-camera
+      link: "http://www.douban.com/people/OrangeUFO/photos"
 share:
   twitter_username: 
   fb_appid: 
 
 urls:
-    - text: 关于我
+    - text: About Me
       url: /about/
-    - text: 我的项目
+    - text: My Projects
       url: /projects/
     - text: XML Feed
       url: /feed.xml
