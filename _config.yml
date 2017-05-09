@@ -1,10 +1,8 @@
-title: Orange UFO
-description: My Personal Orange UFO
+title: ORANGE UFO
+description: 我的个人网站
 author: 橙色飞碟
 github: https://github.com/OrangeUFO
-about: I am freelance developer. Currently doing more in backend, focused in Python and Django.
-disqus_shortname: stackproblems
-google_analytics: UA-XXXXXXXX-Y
+about: 我的个人网站.
 avatar_url: /static/img/avatar.jpg
 
 enableTags: true
@@ -16,25 +14,25 @@ collections:
     permalink: /project/:path/
 
 social:
-    - icon: fa-facebook
-      link: "#"
-    - icon: fa-twitter
-      link: "https://twitter.com/agusmakmun6"
-    - icon: fa-linkedin
-      link: "https://www.linkedin.com/in/summonagus"
+    - icon: fa-music
+      link: "http://music.163.com/#/user/home?id=405440407"
+    - icon: fa-weibo
+      link: "http://weibo.com/5305382808/profile?topnav=1&wvr=6&is_all=1"
+    - icon: fa-renren
+      link: "http://www.douban.com/people/OrangeUFO/"
     - icon: fa-stack-exchange
-      link: "#"
+      link: "http://www.douban.com/people/OrangeUFO/"
     - icon: fa-github
-      link: "https://github.com/agusmakmun"
+      link: "https://github.com/orangeufo"
 
 share:
-  twitter_username: agusmakmun6
-  fb_appid: 1749788565247320
+  twitter_username: 
+  fb_appid: 
 
 urls:
-    - text: About Me
+    - text: 关于我
       url: /about/
-    - text: My Projects
+    - text: 我的项目
       url: /projects/
     - text: XML Feed
       url: /feed.xml
