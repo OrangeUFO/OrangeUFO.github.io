@@ -28,11 +28,11 @@ share:
   fb_appid: 
 
 urls:
-    - text: About Me
+    - text: 关于我
       url: /about/
-    - text: My Projects
+    - text: 我的项目
       url: /projects/
-    - text: XML Feed
+    - text: RSS订阅
       url: /feed.xml
 
 url: "http://www.orangeufo.com"
