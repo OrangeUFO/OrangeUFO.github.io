@@ -21,9 +21,6 @@ social:
       link: "http://www.douban.com/people/OrangeUFO/"
     - icon: fa-camera
       link: "http://www.douban.com/people/OrangeUFO/photos"
-share:
-  twitter_username: 
-  fb_appid: 
 
 urls:
     - text: 关于我
