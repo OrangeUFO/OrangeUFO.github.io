@@ -15,8 +15,6 @@ collections:
     permalink: /project/:path/
 
 social:
-    - icon: fa-music
-      link: "http://music.163.com/#/user/home?id=405440407"
     - icon: fa-envelope
       link: "mailto:chenhuijie23@qq.com"
     - icon: fa-weibo
