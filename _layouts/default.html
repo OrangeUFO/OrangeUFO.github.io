@@ -96,7 +96,7 @@ layout: compress
             </ul>
           </div>
           <div class="search" id="js-search">
-            <input type="text" placeholder="试试超文本搜索～" class="search__input form-control" id="js-search__input">
+            <input type="text" placeholder="试试超文本搜索" class="search__input form-control" id="js-search__input">
             <ul class="search__results" id="js-search__results"></ul>
           </div>
           <hr />
@@ -113,10 +113,14 @@ layout: compress
       <div class="col-sm-8 col-offset-1 main-layout">
         {{ content }}
         <footer>
-          &copy; {{ site.author }}
+          &copy; {{ site.author }} 
           {% if site.douban %}
-            - <a href="{{ site.douban }}">{{ site.douban }}</a> - Powered by Jekyll.
+            - 我的足迹:>>><a target="_blank"href="http://www.douban.com/people/OrangeUFO/">豆瓣</a>&nbsp;&nbsp;<a target="_blank"href="http://www.jianshu.com/users/091d9edf6147/timeline">简书</a>&nbsp;&nbsp;<a target="_blank"href="http://weibo.com/1772295067/profile?topnav=1&wvr=6&is_all=1">微博</a>
           {% endif %}
+          <div class="btn-github" style="float:right;">
+            <iframe src="https://ghbtns.com/github-btn.html?user=orangeufo&repo=orangeufo.github.io&type=star&count=true" frameborder="0" scrolling="0" width="85" height="20px"></iframe>
+            <iframe src="https://ghbtns.com/github-btn.html?user=orangeufo&repo=orangeufo.github.io&type=fork&count=true" frameborder="0" scrolling="0" width="85" height="20px"></iframe>
+          </div>
         </footer>
       </div>
       <!-- end /.col-sm-8 -->

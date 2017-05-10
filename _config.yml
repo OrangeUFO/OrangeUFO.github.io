@@ -20,9 +20,11 @@ social:
     - icon: fa-envira
       link: "http://www.jianshu.com/users/091d9edf6147/timeline"
     - icon: fa-weibo
+      link: "http://weibo.com/1772295067/profile?topnav=1&wvr=6&is_all=1"
+    - icon: fa-angellist
       link: "http://www.douban.com/people/OrangeUFO/"
-    - icon: fa-camera
-      link: "http://www.douban.com/people/OrangeUFO/photos"
+    - icon: fa-github
+      link: "https://github.com/orangeufo"
 
 urls:
     - text: 关于我
