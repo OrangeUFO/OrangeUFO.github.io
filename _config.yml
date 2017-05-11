@@ -3,7 +3,7 @@ description: 我的个人网站
 author: 橙色飞碟
 github: https://github.com/OrangeUFO
 douban: http://www.orangeufo.com
-about: 人是生而自由的，但却无往而不在枷锁之中
+about: Hi～欢迎来到我的个人网站
 avatar_url: /static/img/avatar.jpg
 
 enableTags: true
@@ -20,7 +20,7 @@ social:
     - icon: fa-envira
       link: "http://www.jianshu.com/users/091d9edf6147/timeline"
     - icon: fa-weibo
-      link: "http://weibo.com/1772295067/profile?topnav=1&wvr=6&is_all=1"
+      link: "http://weibo.com/chenhuijie23"
     - icon: fa-angellist
       link: "http://www.douban.com/people/OrangeUFO/"
     - icon: fa-github
