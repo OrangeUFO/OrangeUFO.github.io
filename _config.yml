@@ -1,5 +1,5 @@
 title: ORANGE UFO
-description: 我的个人网站
+description: 个人独立博客
 author: 橙色飞碟
 github: https://github.com/OrangeUFO
 douban: http://www.orangeufo.com
@@ -31,7 +31,7 @@ urls:
       url: /about/
     - text: 我的项目
       url: /projects/
-    - text: RSS订阅
+    - text: 订阅我的小站
       url: /feed.xml
 
 url: "http://www.orangeufo.com"
