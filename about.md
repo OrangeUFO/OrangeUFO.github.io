@@ -5,11 +5,11 @@ permalink: /about/
 ---
 >[关于我:]()
 
-[足迹:]()&nbsp;[豆瓣](http://www.douban.com/people/OrangeUFO/)&nbsp;[微博](http://weibo.com/chenhuijie23)&nbsp;[简书](http://www.jianshu.com/users/091d9edf6147/timeline)
+足迹:&nbsp;[豆瓣](http://www.douban.com/people/OrangeUFO/)&nbsp;[微博](http://weibo.com/chenhuijie23)&nbsp;[简书](http://www.jianshu.com/users/091d9edf6147/timeline)
 
-[邮箱:chenhuijie23@qq.com]()
+邮箱:[chenhuijie23@qq.com]()
 
-[微信:]()
+微信:
 
 ![WeChat](https://raw.githubusercontent.com/OrangeUFO/orangeufo.github.io/master/static/img/_posts/Wechat.png  "扫一扫添加我的微信")
 
@@ -20,8 +20,9 @@ permalink: /about/
 
 >[关于本站:]()
 
-* 采用[jkeyll](http://jekyll.com.cn)静态博客生成.
-* 感谢[agusmakmun](https://agusmakmun.github.io)设计的主题，自己做了一些小修改.
+采用[jkeyll](http://jekyll.com.cn)静态博客生成.
+
+感谢[agusmakmun](https://agusmakmun.github.io)设计的主题，自己做了一些小修改.
 
 
 

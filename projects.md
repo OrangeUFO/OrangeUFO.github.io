@@ -4,4 +4,4 @@ title: Projects
 permalink: /projects/
 ---
 
-这里展示我的一些小项目～
+知识归根结底由经验而来 —— 洛克
