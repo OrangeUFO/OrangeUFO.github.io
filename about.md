@@ -7,7 +7,7 @@ permalink: /about/
 
 [我的微信:]()
 
-![My WeChat](https://raw.githubusercontent.com/orangeufo/orangeufo.github.io/master/static/img/_posts/WeChat.png  "扫一扫添加我的微信")
+![WeChat](https://raw.githubusercontent.com/OrangeUFO/orangeufo.github.io/master/static/img/_posts/Wechat.png  "扫一扫添加我的微信")
 
 [我看(听)过的:]()
 
