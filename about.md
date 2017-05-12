@@ -5,6 +5,10 @@ permalink: /about/
 ---
 >[关于我:]()
 
+[我的足迹:]()&nbsp;[豆瓣](http://www.douban.com/people/OrangeUFO/)&nbsp;[微博](http://weibo.com/chenhuijie23)&nbsp;[简书](http://www.jianshu.com/users/091d9edf6147/timeline)
+
+[我的邮箱:chenhuijie23@qq.com]()
+
 [我的微信:]()
 
 ![WeChat](https://raw.githubusercontent.com/OrangeUFO/orangeufo.github.io/master/static/img/_posts/Wechat.png  "扫一扫添加我的微信")

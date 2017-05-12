@@ -110,8 +110,8 @@ layout: compress
         {{ content }}
         <footer>
           &copy; {{ site.author }} 
-          {% if site.douban %}
-            - 我的足迹:>>><a target="_blank"href="http://www.douban.com/people/OrangeUFO/">豆瓣</a>&nbsp;&nbsp;<a target="_blank"href="http://www.jianshu.com/users/091d9edf6147/timeline">简书</a>&nbsp;&nbsp;<a target="_blank"href="http://weibo.com/chenhuijie23">微博</a>
+          {% if site.me %}
+             - <a href="{{ site.me }}">{{ site.me }}</a> - Powered by Jekyll.
           {% endif %}
           <div class="btn-github" style="float:right;">
             <iframe src="https://ghbtns.com/github-btn.html?user=orangeufo&repo=orangeufo.github.io&type=star&count=true" frameborder="0" scrolling="0" width="85" height="20px"></iframe>
