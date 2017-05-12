@@ -9,11 +9,11 @@ permalink: /about/
 
 邮箱:[chenhuijie23@qq.com]()
 
-微信:
+扫一扫添加我微信:
 
 ![WeChat](https://raw.githubusercontent.com/OrangeUFO/orangeufo.github.io/master/static/img/_posts/Wechat.png  "扫一扫添加我的微信")
 
-[看(听)过的:]()
+[最近看(听)过的:]()
 
 <script type="text/javascript" src="http://www.douban.com/service/badge/OrangeUFO/?selection=latest&amp;picsize=small&amp;hideself=on&amp;show=collection&amp;n=12&amp;hidelogo=on&amp;cat=drama%7Cmovie%7Cbook%7Cmusic&amp;columns=6"></script>
 <br/>
