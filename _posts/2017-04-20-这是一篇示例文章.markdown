@@ -1,9 +1,11 @@
 ---
 layout: post
-title:  "Adding BroadCast Mail to All Users Registered inside Django Admin"
-date:   2016-04-20 19:51:02 +0700
-categories: [python, django]
+title: 这是一篇示例文章
+date: '2017-04-10'
+categories:
+  - 其他
 image: Broadcast_Mail.png
+published: true
 ---
 
 Adding BroadCast Mail to All User Registered in Django Admin. This is my last problem, we need custom default Django Admin to can submit BroadCast mail to All User. Because this is perfectly to make a promotions.

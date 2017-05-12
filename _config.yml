@@ -27,7 +27,7 @@ social:
       link: "https://github.com/orangeufo"
 
 urls:
-    - text: 关于我
+    - text: 关于
       url: /about/
     - text: 我的项目
       url: /projects/
