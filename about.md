@@ -13,14 +13,14 @@ permalink: /about/
 
 [关于本站:]()
 
-* 采用[jkeyll](http://jekyll.com.cn)静态博客生成.
+* 采用`jkeyll`静态博客生成.
 
-* 感谢[agusmakmun](https://agusmakmun.github.io)设计的主题，自己做了一些小修改.
+* 感谢`agusmakmun`设计的主题，自己做了一些小修改.
 
-* 删除原disquz评论功能
-* 优化中文字体（mac ios 最优）
-* 添加百度统计
-* 添加分享到中文社交网站功能
+* 删除原disquz`评论功能`
+* 优化`中文字体`（mac ios 最优）
+* 添加`百度统计`
+* 添加`分享`到中文社交网站功能
 
 
 
