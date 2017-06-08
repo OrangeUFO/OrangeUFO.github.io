@@ -26,7 +26,7 @@ published: true
 
 {% highlight python %}
  # 代码来源于米筐(ricequant)，需在米筐平台下运行
- # 代码本人只做为学习用途
+ # 代码本人只做为学习用途，略作修改
 
 import talib
  # init 只在启动时运行一次，初始化固定参数作用
