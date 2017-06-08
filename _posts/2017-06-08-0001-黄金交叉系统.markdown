@@ -46,4 +46,4 @@ def handle_bar(context, bar_dict):
 
 **2.** 策略回测：
 
-![Screenshot broadcast](https://raw.githubusercontent.com/agusmakmun/agusmakmun.github.io/master/static/img/_posts/Broadcast_Mail.png  "Screenshot broadcast")
+![001-均线交叉策略](https://raw.githubusercontent.com/OrangeUFO/orangeufo.github.io/master/static/img/_posts/001.png  "001-均线交叉策略")
