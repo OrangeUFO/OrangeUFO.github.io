@@ -1,0 +1,94 @@
+---
+layout: post
+title: 002-单股票MACD策略
+date: '2017-06-08'
+categories:
+  - 策略
+  - 转载
+published: true
+---
+
+`MACD`是计算两条不同速度（长期与中期）的指数平滑移动平均线（EMA）的差离状况来作为研判行情的基础。
+
+`DIFF`
+
+1.首先分别计算出收市价SHORT日指数平滑移动平均线与LONG日指数平滑移动平均线，分别记为EMA(SHORT）与EMA(LONG）。
+
+2.求这两条指数平滑移动平均线的差，即：DIFF=EMA（SHORT）－EMA（LONG）。
+
+`DEA`
+
+3.再计算DIFF的M日的平均的指数平滑移动平均线，记为DEA。
+
+4.最后用DIFF减DEA，得MACD。MACD通常绘制成围绕零轴线波动的柱形图。
+
+5.在绘制的图形上,`DIFF`与`DEA`形成了两条快慢移动平均线，买进卖出信号也就决定于这两条线的交叉点。
+
+---
+
+**1.** 策略要点：
+
+* 进场：DIFF线上穿DEA线。
+* 出场：DIFF线下穿DEA线。 
+* 资金管理：全仓进，全仓出。
+* 选股：无选股，以平安银行为例。
+* 止损止盈：进出场信号。
+
+-----
+
+**2.** 策略代码：
+
+{% highlight python %}
+ #代码来源于米筐(ricequant)，需在米筐平台下运行
+ #代码本人只做为学习用途
+
+ # 可以自己import我们平台支持的第三方python模块，比如pandas、numpy等。
+import talib
+ # 在这个方法中编写任何的初始化逻辑。context对象将会在你的算法策略的任何方法之间做传递。
+def init(context):
+    # 在context中保存全局变量
+    context.s1 = "000001.XSHE"
+    # 定义MACD的参数
+    context.short_period = 12
+    context.long_period = 26
+    context.smoothperiod = 9
+    # 定义EMA的观察窗口，有利于EMA的可靠性
+    context.observation = 100
+    # 实时打印日志
+    logger.info("RunInfo: {}".format(context.run_info))
+
+ # before_trading此函数会在每天策略交易开始前被调用，当天只会被调用一次
+def before_trading(context):
+    pass
+
+
+ # 你选择的证券的数据更新将会触发此段逻辑，例如日或分钟历史数据切片或者是实时数据切片更新
+def handle_bar(context, bar_dict):
+    # 开始编写你的主要的算法逻辑
+
+    # bar_dict[order_book_id] 可以拿到某个证券的bar信息
+    # context.portfolio 可以拿到现在的投资组合信息
+
+    # 使用order_shares(id_or_ins, amount)方法进行落单
+
+    # TODO: 开始编写你的算法吧！
+    price = history_bars(context.s1,context.observation,'1d','close')
+    DIFF,DEA,hist = talib.MACD(price,context.short_period,context.long_period,context.smoothperiod)
+    #自定义macd指标图
+    plot('DIFF',DIFF[-1])
+    plot('DEA',DEA[-1])
+    #定义进出场信号
+    if DIFF[-1]<DEA[-1] and DIFF[-2]>DEA[-2] and context.portfolio.positions[context.s1].quantity > 0:
+        order_target_percent(context.s1,0)
+    if DIFF[-1]>DEA[-1] and DIFF[-2]<DEA[-2]:
+        order_target_percent(context.s1,1)
+
+ # after_trading函数会在每天交易结束后被调用，当天只会被调用一次
+def after_trading(context):
+    pass{% endhighlight %}
+
+-----
+
+**3.** 策略回测：
+
+![002-单股票MACD策略](https://raw.githubusercontent.com/OrangeUFO/orangeufo.github.io/master/static/img/_posts/002.png  "002-单股票MACD策略")

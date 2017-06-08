@@ -1,0 +1,61 @@
+---
+layout: post
+title: 001-黄金交叉策略
+date: '2017-06-08'
+categories:
+  - 策略
+  - 转载
+published: true
+---
+
+`黄金交叉`（Golden Cross）就是指上升中的短期移动平均线由下而上穿过上升的长期移动平均线的交叉，这个时候压力线被向上突破，表示股价将继续上涨，行情看好；对应的还有`死亡交叉`指下降中的短期移动平均线由上而下穿过下降的长期移动平均线，这个时候支撑线被向下突破，表示股价将继续下落，行情看跌。
+
+---
+
+**1.** 策略要点：
+
+* 进场：20日均线上穿120日均线。
+* 出场：20日均线下穿120均线。 
+* 资金管理：全仓进，全仓出。
+* 选股：无选股，以平安银行为例。
+* 止损止盈：进出场信号。
+
+-----
+
+**2.** 策略代码：
+
+{% highlight python %}
+ # 代码来源于米筐(ricequant)，需在米筐平台下运行
+ # 代码本人只做为学习用途
+
+import talib
+ # init 只在启动时运行一次，初始化固定参数作用
+def init(context):
+    #初始化购买的股票
+    context.stock = '000001.XSHE' 
+    #初始化均线的长短周期
+    context.short_day = 20
+    context.long_day = 120
+ # handle_bar 会根据运行的频率重复运行
+def handle_bar(context,bar_dict):
+    #取出目标股票长周期+1天的收盘价序列
+    price = history_bars(context.stock,context.long_day+1,'1d',fields='close')
+    #计算目标股票的长短均线序列，利用第三方库talib
+    short_SMA = talib.SMA(price,context.short_day)
+    long_SMA = talib.SMA(price,context.long_day)
+    #获取目标股票的股数
+    current_position = context.portfolio.positions[context.stock].quantity
+    #计算可以买多少目标股票股数
+    shares = context.portfolio.cash/bar_dict[context.stock].close
+    #进出场信号的建立
+    if short_SMA[-1]<long_SMA[-1] and short_SMA[-2]>long_SMA[-2] and current_position > 0:
+        order_target_percent(context.stock,0)
+    if short_SMA[-1]>long_SMA[-1] and short_SMA[-2]<long_SMA[-2]:
+        order_target_percent(context.stock,1)
+{% endhighlight %}
+
+-----
+
+**3.** 策略回测：
+
+![001-均线交叉策略](https://raw.githubusercontent.com/OrangeUFO/orangeufo.github.io/master/static/img/_posts/001.png  "001-均线交叉策略")
