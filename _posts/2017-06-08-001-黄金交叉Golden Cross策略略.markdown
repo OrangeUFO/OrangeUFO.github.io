@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 001-黄金交叉策略
+title: 001-黄金交叉Golden Cross策略
 date: '2017-06-08'
 categories:
   - 策略
