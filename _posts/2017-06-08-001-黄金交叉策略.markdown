@@ -43,10 +43,9 @@ def handle_bar(context,bar_dict):
     #计算目标股票的长短均线序列，利用第三方库talib
     short_SMA = talib.SMA(price,context.short_day)
     long_SMA = talib.SMA(price,context.long_day)
-    #获取目标股票的股数
-    current_position = context.portfolio.positions[context.stock].quantity
-    #计算可以买多少目标股票股数
-    shares = context.portfolio.cash/bar_dict[context.stock].close
+    #自定义均线绘图
+    plot('short_SMA',short_SMA[-1])
+    plot('long_SMA',long_SMA[-1])
     #进出场信号的建立
     if short_SMA[-1]<long_SMA[-1] and short_SMA[-2]>long_SMA[-2] and current_position > 0:
         order_target_percent(context.stock,0)
