@@ -85,7 +85,8 @@ def handle_bar(context, bar_dict):
 
  # after_trading函数会在每天交易结束后被调用，当天只会被调用一次
 def after_trading(context):
-    pass{% endhighlight %}
+    pass
+{% endhighlight %}
 
 -----
 
