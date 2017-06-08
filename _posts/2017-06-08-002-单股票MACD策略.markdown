@@ -39,8 +39,8 @@ published: true
 **2.** 策略代码：
 
 {% highlight python %}
- #代码来源于米筐(ricequant)，需在米筐平台下运行
- #代码本人只做为学习用途
+ # 代码来源于米筐(ricequant)，需在米筐平台下运行。
+ # 代码本人只做为学习用途。
 
  # 可以自己import我们平台支持的第三方python模块，比如pandas、numpy等。
 import talib
