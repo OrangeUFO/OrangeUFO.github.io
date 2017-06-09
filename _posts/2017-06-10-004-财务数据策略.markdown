@@ -1,0 +1,88 @@
+---
+layout: post
+title: 004-财务数据策略
+date: '2017-06-10'
+categories:
+  - 策略
+  - 转载
+published: true
+---
+
+通过查询回测开始当天的`财务数据`，获得`市盈率`大于55且小于60，`营业总收入`前10的股票，然后将所有资金平摊到这10个股票Buy & Hold的策略。
+
+---
+
+**1.** 策略要点：
+
+* 进场：直接买入。
+* 出场：无。 
+* 资金管理：多股票，平均分配仓位。
+* 选股：选择营业收入前十市盈率在55～60之间的十只股票。
+* 止损止盈：无。
+
+-----
+
+**2.** 策略代码：
+
+{% highlight python %}
+ # 代码来源于米筐(ricequant)，需在米筐平台下运行
+ # 代码本人只做为学习用途，略作修改
+
+ # 可以自己import我们平台支持的第三方python模块，比如pandas、numpy等。
+
+ # 在这个方法中编写任何的初始化逻辑。context对象将会在你的算法策略的任何方法之间做传递。
+def init(context):
+    # 在context中保存全局变量
+    fundamentals_df = get_fundamentals(
+        query(fundamentals.income_statement.revenue,
+        fundamentals.eod_derivative_indicator.pe_ratio).
+        filter(fundamentals.eod_derivative_indicator.pe_ratio>55).
+        filter(fundamentals.eod_derivative_indicator.pe_ratio<60).
+        order_by(fundamentals.income_statement.revenue).
+        limit(10)
+        )
+    # 打印选出来的股票
+    logger.info(fundamentals_df)
+    # 保存选出的结果数据
+    context.fundamentals_df = fundamentals_df
+    # 更新股票池
+    update_universe(context.fundamentals_df.columns.values)
+    # 设置交易开关
+    context.fire = False
+    # 保存股票序列
+    context.stocks = context.fundamentals_df.columns.values
+    # 计算股票数量
+    stocks_num = len(context.stocks)
+    # 计算股票购买比例
+    context.weight = 0.99/stocks_num
+ # before_trading此函数会在每天策略交易开始前被调用，当天只会被调用一次
+def before_trading(context):
+    pass
+
+
+ # 你选择的证券的数据更新将会触发此段逻辑，例如日或分钟历史数据切片或者是实时数据切片更新
+def handle_bar(context, bar_dict):
+    # 开始编写你的主要的算法逻辑
+
+    # bar_dict[order_book_id] 可以拿到某个证券的bar信息
+    # context.portfolio 可以拿到现在的投资组合信息
+
+    # 使用order_shares(id_or_ins, amount)方法进行落单
+
+    # TODO: 开始编写你的算法吧！
+    if not context.fire:
+        for stock in context.stocks:
+            order_target_percent(stock,context.weight)
+        context.fire = True
+        
+
+ # after_trading函数会在每天交易结束后被调用，当天只会被调用一次
+def after_trading(context):
+    pass
+{% endhighlight %}
+
+-----
+
+**3.** 策略回测：
+
+![004-财务数据策略](https://raw.githubusercontent.com/OrangeUFO/orangeufo.github.io/master/static/img/_posts/004.png  "004-财务数据策略")
