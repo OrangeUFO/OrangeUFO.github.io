@@ -1,0 +1,98 @@
+---
+layout: post
+title: 005-根据收益和市盈率定期调仓策略
+date: '2017-06-10'
+categories:
+  - 策略
+  - 转载
+published: true
+---
+
+这是一个利用财务数据定期选股并且调仓的策略：选取市盈率在53到67之间，盈利前10的股票，然后按照等比例分配资金买入一个10个股票的投资组合。
+
+---
+
+**1.** 策略要点：
+
+* 进场：直接买入，每月第一个交易日进场。
+* 出场：直接买入，每月第一个交易日出场。 
+* 资金管理：多股票，平均分配仓位。
+* 选股：选择营业收入前十市盈率在53～57之间的十只股票。
+* 止损止盈：无。
+
+-----
+
+**2.** 策略代码：
+
+{% highlight python %}
+ # 代码来源于米筐(ricequant)，需在米筐平台下运行
+ # 代码本人只做为学习用途，略作修改
+
+ # 可以自己import我们平台支持的第三方python模块，比如pandas、numpy等。
+
+ # 在这个方法中编写任何的初始化逻辑。context对象将会在你的算法策略的任何方法之间做传递。
+ # 定每月运行的函数
+def fundamentals_month(context,bar_dict):
+    # 选股
+    fundamentals_df = get_fundamentals(
+        query(fundamentals.income_statement.revenue,
+        fundamentals.eod_derivative_indicator.pe_ratio).
+        filter(fundamentals.eod_derivative_indicator.pe_ratio>53).
+        filter(fundamentals.eod_derivative_indicator.pe_ratio<67).
+        order_by(fundamentals.income_statement.revenue).
+        limit(10)
+        )
+    # 保存选股对象
+    context.fundamentals_df = fundamentals_df
+    # 保存选股股票列表
+    context.stocks = context.fundamentals_df.columns.values
+    # 更新股票池
+    update_universe(context.stocks)
+    # 计算股票数量
+    context.stocks_num = len(context.stocks)
+    # 计算股票购买比例
+    context.stock_weight = 0.99/context.stocks_num
+    # 获取持有股票名称
+    context.stocks_holding = context.portfolio.positions.keys()
+    # 清除已经持有的股票
+    for holding_stocks in context.stocks_holding:
+        if context.portfolio.positions[holding_stocks].quantity != 0:
+            order_target_percent(holding_stocks,0)
+            logger.info("清掉的股票：}"+str(holding_stocks))
+    for stock in context.stocks:
+        order_target_percent(stock,context.stock_weight)
+        logger.info("购买的股票：}"+str(stock))
+    
+def init(context):
+    # 在context中保存全局变量
+    scheduler.run_monthly(fundamentals_month,1)
+    
+    
+
+ # before_trading此函数会在每天策略交易开始前被调用，当天只会被调用一次
+def before_trading(context):
+    pass
+
+
+ # 你选择的证券的数据更新将会触发此段逻辑，例如日或分钟历史数据切片或者是实时数据切片更新
+def handle_bar(context, bar_dict):
+    # 开始编写你的主要的算法逻辑
+
+    # bar_dict[order_book_id] 可以拿到某个证券的bar信息
+    # context.portfolio 可以拿到现在的投资组合信息
+
+    # 使用order_shares(id_or_ins, amount)方法进行落单
+
+    # TODO: 开始编写你的算法吧！
+   pass
+
+ # after_trading函数会在每天交易结束后被调用，当天只会被调用一次
+def after_trading(context):
+    pass
+{% endhighlight %}
+
+-----
+
+**3.** 策略回测：
+
+![005-根据收益和市盈率定期调仓策略](https://raw.githubusercontent.com/OrangeUFO/orangeufo.github.io/master/static/img/_posts/005.png  "005-根据收益和市盈率定期调仓策略")
