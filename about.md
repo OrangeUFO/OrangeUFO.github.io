@@ -6,7 +6,7 @@ permalink: /about/
 
 [关于我:]()
 
-* 我的足迹:&nbsp;[豆瓣](http://www.douban.com/people/OrangeUFO/)&nbsp;[微博](http://weibo.com/chenhuijie23)&nbsp;[雪球](http://xueqiu.com/orangeufo)
+* 我的足迹:&nbsp;[豆瓣](http://www.douban.com/people/OrangeUFO/)&nbsp;[雪球](http://xueqiu.com/orangeufo)
 * 我的邮箱:`chenhuijie23@qq.com`
 * 我的微信:`chenhuijie231`
 
