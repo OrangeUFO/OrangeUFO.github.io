@@ -1,0 +1,157 @@
+---
+layout: post
+title: 006-海龟交易策略
+date: '2017-06-15'
+categories:
+  - 策略
+  - 转载
+published: true
+---
+
+海龟交易系统也是非常经典的一种策略。
+
+---
+
+**1.** 策略要点：
+
+* 进场：突破前55个交易日最高点。
+* 出场：下跌超过前20个交易日最低点。 
+* 资金管理：逐步加仓，没上涨超过0.5个atr值则加仓一个单位，最多不超过4个单位。
+* 选股：无，以000300为例。
+* 止损止盈：下跌超过两个atr值止损，加仓情况下每个单位增加0.5个atr值；无止盈
+
+-----
+
+**2.** 策略代码：
+
+{% highlight python %}
+ # 代码来源于米筐(ricequant)，需在米筐平台下运行
+ # 代码本人只做为学习用途，略作修改
+
+ # 可以自己import我们平台支持的第三方python模块，比如pandas、numpy等。
+
+import numpy as np
+import talib
+import math
+
+ # 定义相关函数
+ # 定义进出场信号,最大值为进场信号，最小值为清场信号，抛开最新价格
+def get_extreme(array_high_price,array_low_price):
+    np_array_high_price = np.array(array_high_price[:-1])
+    np_array_low_price = np.array(array_low_price[:-1])
+    maxx_result = np_array_high_price.max()
+    minn_result = np_array_low_price.min()
+    return [maxx_result,minn_result]
+ # 取真实波动幅值与头寸,array_atr为后面利用talib库计算的atr数组，portfolio_value为当前账户总权益
+def get_atr_unit(array_atr,portfolio_value):
+    atr = array_atr[-1]
+    unit = math.floor(portfolio_value*0.01/atr)
+    return [atr,unit]
+ # 取得止损价格，最多不亏损两个atr，如果为已加仓的合约，则在前面的基础上增加0.5个atr
+def get_stop_price(first_open_price,unit_hold,atr):
+    stop_price = first_open_price-(2*atr+((unit_hold-1)*0.5*atr))
+    return stop_price
+ # 在这个方法中编写任何的初始化逻辑。context对象将会在你的算法策略的任何方法之间做传递。
+def init(context):
+    context.s = '000300.XSHG' 
+    context.unit = 0 
+    context.atr = 0
+    context.signal = 'start'
+    context.unit_hold = 0 
+    context.unit_hold_max = 4
+    context.quantity = 0
+    context.max_add = 0
+    context.first_open_price = 0
+    context.open_observe_time = 55
+    context.close_observe_time =20
+    context.atr_time = 20
+    context.trade_day_num = 0
+    context.pre_signal = ''
+    
+
+def handle_bar(context,bar_dict):
+    # 取得open_observe_time+1的最高价
+    array_high_price = history_bars(context.s,context.open_observe_time+1,'1d','high')
+    # 取得open_observe_time+1的最低价
+    array_low_price = history_bars(context.s,context.open_observe_time+1,'1d','low')
+    # 取得open_observe_time+2的收盘价
+    array_close_price = history_bars(context.s,context.open_observe_time+2,'1d','close')
+    close_price = array_close_price[:-1]
+    # 取得close_observe_time+1的最低价
+    array_low_price_extrem = history_bars(context.s,context.close_observe_time+1,'1d','low')
+    # 计算atr数组
+    atr_array = talib.ATR(array_high_price,array_low_price,close_price,timeperiod = context.atr_time)
+    #取得maxx
+    maxx = get_extreme(array_high_price,array_low_price_extrem)[0]
+    #取得maxx
+    minn = get_extreme(array_high_price,array_low_price_extrem)[1]
+    # 取得当前账户净值
+    portfolio_value = context.portfolio.total_value
+    # 取得atr
+    atr = atr_array[-2]
+    #计算加仓的价格标准
+    if context.signal != 'start':
+        if context.portfolio.positions != 0:
+            context.max_add += 0.5 * get_atr_unit(atr_array,portfolio_value)[0]
+    else:
+        context.max_add = bar_dict[context.s].last
+    # 当前context.s的持股数量
+    cur_position = context.portfolio.positions[context.s].quantity
+    # 取得账户可用资金
+    available_cash = context.portfolio.cash
+    # 当前账户合约的市场价值
+    market_value = context.portfolio.market_value
+    
+    #当前仓位大于0并且当前价格小于止损价格，产生信号'stop'
+    if (cur_position > 0 and bar_dict[context.s].last < get_stop_price(context.first_open_price,context.unit_hold,atr)):
+        context.signal = 'stop'
+    else:
+        # 仓位大于0，并且当前价格小于观察时期的low的最小值
+        if cur_position > 0 and bar_dict[context.s].last < minn:
+            context.signal = 'exit'
+        else:
+            #仓位大于0但小于策略设计最大仓位，并且当前价格大于观察期的最大值，产生追加仓位的信号
+            if (bar_dict[context.s].last > context.max_add and context.unit_hold != 0 and context.unit_hold < context.unit_hold_max and available_cash > bar_dict[context.s].last * context.unit):
+                context.signal = 'entry_add'
+            else:
+                # 价格大于maxx并且持仓为0，产生信号'entry'
+                if bar_dict[context.s].last > maxx and context.unit_hold == 0:
+                    context.max_add = bar_dict[context.s].last
+                    context.signal = 'entry'
+    atr = get_atr_unit(atr_array,portfolio_value)[0]
+    if context.trade_day_num % 5 ==0:
+        context.unit = get_atr_unit(atr_array,portfolio_value)[1]
+    context.trade_day_num += 1
+    context.quantity = context.unit
+    
+    #不同信号下的操作
+    if (context.signal != context.pre_signal or (context.unit_hold < context.unit_hold_max and context.unit_hold >1) or context.signal == 'stop'):
+        if context.signal == 'entry':
+            context.quantity = context.unit
+            if available_cash > bar_dict[context.s].last*context.quantity:
+                order_shares(context.s,context.quantity)
+                context.first_open_price = bar_dict[context.s].last
+                context.unit_hold = 1 
+        
+        if context.signal =='entry_add':
+            context.quantity = context.unit
+            order_shares(context.s,context.quantity)
+            context.unit_hold += 1
+            
+        if context.signal =='stop':
+            if context.unit_hold >0:
+                order_shares(context.s,-context.quantity)
+                context.unit_hold -= 1
+        
+        if context.signal =='exit':
+            if cur_position > 0:
+                order_shares(context.s,-cur_position)
+                context.unit_hold = 0
+    context.pre_signal = context.signal
+{% endhighlight %}
+
+-----
+
+**3.** 策略回测：
+
+![006-海龟交易策略](https://raw.githubusercontent.com/OrangeUFO/orangeufo.github.io/master/static/img/_posts/006.png  "006-海龟交易策略")
